@@ -1,0 +1,4 @@
+{
+  "anthropic_api_key": "在这里填入你的 API 密钥（sk-ant-开头）",
+  "model": "claude-haiku-5-5"
+}

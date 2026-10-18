@@ -1,0 +1,238 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>三语词源对照</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,600;1,6..72,400&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+:root{
+  --bg:#f4f5f1; --card:#fbfbf9; --ink:#1b2220; --muted:#5d6864; --rule:#d7dbd4;
+  --accent:#27477a; --accent-ink:#ffffff;
+  --germ:#2b6b58; --germ-bg:#e2efe9;
+  --rom:#b0442c;  --rom-bg:#f6e4de;
+  --lat:#7b3c69;  --lat-bg:#f0e2ec;
+  --oth:#6b6f7a;  --oth-bg:#e8e9ec;
+  --warn:#8a5a00; --warn-bg:#fbefd2;
+  --f-display:"Newsreader","Iowan Old Style",Georgia,"Songti SC",serif;
+  --f-ui:"IBM Plex Sans",-apple-system,"Segoe UI","PingFang SC","Noto Sans SC","Microsoft YaHei",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme:dark){:root{
+  --bg:#131816; --card:#1a201e; --ink:#e5eae6; --muted:#9aa49f; --rule:#2c3532;
+  --accent:#8eaee6; --accent-ink:#0f1626;
+  --germ:#6fc4a8; --germ-bg:#1d2f29;
+  --rom:#ef8c72;  --rom-bg:#35211c;
+  --lat:#d69cc5;  --lat-bg:#2f1f2b;
+  --oth:#a9adb8;  --oth-bg:#25282e;
+  --warn:#f0c160; --warn-bg:#33290f;
+  color-scheme:dark}}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--f-ui);font-size:15px;line-height:1.6}
+.wrap{max-width:1080px;margin:0 auto;padding:28px 16px 56px;display:flex;flex-direction:column;gap:20px}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+h1{font-family:var(--f-display);font-weight:600;font-size:clamp(1.7rem,4vw,2.3rem);line-height:1.15;margin:0}
+.lede{margin:0;color:var(--muted);max-width:66ch}
+form{display:flex;gap:8px;flex-wrap:wrap}
+#q{flex:1 1 240px;min-width:0;font:inherit;font-size:17px;padding:11px 14px;border:1px solid var(--rule);border-radius:8px;background:var(--card);color:var(--ink)}
+#q:focus-visible,button:focus-visible,a:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+button{font:inherit;font-weight:500;cursor:pointer;border-radius:8px;border:1px solid transparent;padding:10px 16px}
+.btn{background:var(--accent);color:var(--accent-ink)}
+.btn:disabled{opacity:.55;cursor:default}
+.seg{display:inline-flex;border:1px solid var(--rule);border-radius:8px;overflow:hidden}
+.seg button{border-radius:0;background:transparent;color:var(--muted);padding:10px 12px;border:0}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.chips>span{font-size:13px;color:var(--muted);margin-right:4px}
+.chip{font-family:var(--f-display);font-size:16px;padding:3px 11px;border-radius:999px;background:transparent;border:1px solid var(--rule);color:var(--ink)}
+.chip.small{font-size:14px;padding:1px 9px}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:13px;color:var(--muted)}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.result{display:flex;flex-direction:column;gap:18px}
+.summary{display:flex;flex-direction:column;gap:8px;border-top:2px solid var(--ink);padding-top:14px}
+.pills{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.pill{font-size:12px;font-weight:500;padding:2px 9px;border-radius:4px}
+.p-cognate{background:var(--germ-bg);color:var(--germ)}
+.p-borrow{background:var(--rom-bg);color:var(--rom)}
+.p-latin{background:var(--lat-bg);color:var(--lat)}
+.p-loop{background:var(--germ-bg);color:var(--rom);box-shadow:inset 3px 0 0 var(--germ)}
+.p-src{color:var(--muted);border:1px solid var(--rule)}
+.zh{font-size:14px;color:var(--muted)}
+.headline{font-family:var(--f-display);font-size:1.3rem;line-height:1.4;margin:0}
+.banner{background:var(--card);border:1px solid var(--rule);border-radius:8px;padding:8px 12px;font-size:14px;margin:0}
+.banner button{padding:2px 8px;font-size:14px;background:transparent;color:var(--accent);border:1px solid var(--rule)}
+.cols{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+@media (max-width:780px){.cols{grid-template-columns:1fr}}
+.col{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.lang{font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:flex;justify-content:space-between;gap:8px}
+.word{font-family:var(--f-display);font-size:2.3rem;line-height:1.05;margin:0;overflow-wrap:anywhere}
+.gloss{margin:0;padding-left:1.1em;color:var(--muted);font-size:14px}
+.chain{list-style:none;margin:0;padding:0}
+.chain li{display:grid;grid-template-columns:12px 1fr;gap:10px;position:relative;padding-bottom:8px}
+.chain li::before{content:"";width:10px;height:10px;border-radius:50%;margin-top:7px;background:var(--c)}
+.chain li:not(:last-child)::after{content:"";position:absolute;left:4.5px;top:19px;bottom:-1px;width:1px;background:var(--rule)}
+.f-G{--c:var(--germ)} .f-R{--c:var(--rom)} .f-L{--c:var(--lat)} .f-O{--c:var(--oth)}
+.chain .lg{font-size:12px;color:var(--muted);display:block;line-height:1.3}
+.chain .fm{font-family:var(--f-mono);font-size:14px;color:var(--c);overflow-wrap:anywhere}
+.chain .mean{font-size:12px;color:var(--muted)}
+.alts{display:flex;flex-wrap:wrap;gap:5px;align-items:center;font-size:12px;color:var(--muted)}
+details{font-size:13px;color:var(--muted)}
+details p{margin:6px 0 0;white-space:pre-wrap}
+summary{cursor:pointer}
+.col a{font-size:13px;color:var(--accent);text-decoration:none}
+.col a:hover{text-decoration:underline}
+.empty{color:var(--muted);font-size:14px;margin:0}
+.panel{display:flex;flex-direction:column;gap:10px}
+.panel h2{font-family:var(--f-display);font-weight:600;font-size:1.25rem;margin:0}
+.notes{margin:0;padding-left:1.2em;display:flex;flex-direction:column;gap:6px;max-width:76ch}
+.ai-box{background:var(--card);border:1px solid var(--rule);border-radius:10px;padding:16px}
+.ai-out{margin:0;max-width:72ch;white-space:pre-wrap}
+.ai-out:empty{display:none}
+.small{font-size:13px;color:var(--muted);margin:0}
+.setup{background:var(--warn-bg);color:var(--ink);border-radius:10px;padding:16px 18px}
+.setup code{font-family:var(--f-mono);font-size:13px;background:var(--card);padding:1px 5px;border-radius:4px}
+footer{font-size:13px;color:var(--muted);border-top:1px solid var(--rule);padding-top:12px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="eyebrow">English · Français · Nederlands (Vlaams)</div>
+    <h1>一个词，三种语言，一条家谱</h1>
+    <p class="lede">输入英语、法语或荷兰语单词。所有对应词和词源链都直接来自维基词典的数据，关系是程序根据词源标记自动判断的。</p>
+  </header>
+
+  <div id="setup" class="setup" hidden></div>
+
+  <form id="f" autocomplete="off">
+    <input id="q" type="search" placeholder="例如 garden、jardin、tuin" aria-label="查词">
+    <div class="seg" role="group" aria-label="输入的语言">
+      <button type="button" data-lang="" aria-pressed="true">自动</button>
+      <button type="button" data-lang="en" aria-pressed="false">英</button>
+      <button type="button" data-lang="fr" aria-pressed="false">法</button>
+      <button type="button" data-lang="nl" aria-pressed="false">荷</button>
+    </div>
+    <button class="btn" type="submit">查询</button>
+  </form>
+  <div class="chips" id="examples"><span>试试：</span></div>
+
+  <div class="legend">
+    <span><i style="background:var(--germ)"></i>日耳曼语支</span>
+    <span><i style="background:var(--rom)"></i>法语 / 罗曼语</span>
+    <span><i style="background:var(--lat)"></i>拉丁语</span>
+    <span><i style="background:var(--oth)"></i>其他</span>
+    <span>（圆点颜色表示词源链上这一步所在的语言）</span>
+  </div>
+
+  <section id="out" class="result" aria-live="polite"></section>
+  <footer id="foot">数据来源：英文维基词典（Wiktionary），经 kaikki.org 整理。</footer>
+</div>
+
+<script>
+const TAGS={cognate:"英荷同源",borrow:"英语借自法语",latin:"同出拉丁语",loop:"日耳曼 → 法语 → 英语"};
+const LABEL={en:"英语 English",fr:"法语 Français",nl:"荷兰语 / 佛兰芒语"};
+const LNAME={en:"英语",fr:"法语",nl:"荷兰语"};
+const EXAMPLES=["garden","war","house","table","beef","village","tuin","guerre"];
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+let state={lang:"",status:null,last:null,ctl:null};
+
+document.querySelectorAll(".seg button").forEach(b=>b.onclick=()=>{
+  state.lang=b.dataset.lang; document.querySelectorAll(".seg button").forEach(x=>x.setAttribute("aria-pressed",String(x===b)));
+});
+EXAMPLES.forEach(w=>{const b=document.createElement("button");b.type="button";b.className="chip";b.textContent=w;
+  b.onclick=()=>{$("#q").value=w;search({q:w})};$("#examples").appendChild(b)});
+
+async function init(){
+  try{ state.status=await (await fetch("/api/status")).json() }catch{ state.status={db_ready:false} }
+  const s=state.status;
+  if(!s.db_ready){
+    $("#setup").hidden=false;
+    $("#setup").innerHTML=`<strong>还没有词典数据。</strong> 在程序文件夹里依次运行：<br>
+      <code>python download_data.py</code>（下载约 2.8 GB）<br>
+      <code>python import_data.py data/raw-wiktextract-data.jsonl.gz</code>（导入，约半小时到一小时）<br>
+      想先试试的话，可以运行 <code>python tests/make_sample.py</code> 和 <code>python import_data.py tests/sample.jsonl.gz</code> 导入一份小样例。完成后刷新这个页面。`;
+    return;
+  }
+  if(s.meta?.imported_at) $("#foot").textContent=`数据来源：英文维基词典（Wiktionary），经 kaikki.org 整理；导入日期 ${s.meta.imported_at}。`;
+  $("#q").value="garden"; search({q:"garden"});
+}
+
+async function search(params){
+  state.ctl?.abort();
+  const p=new URLSearchParams();
+  for(const [k,v] of Object.entries(params)) if(v) p.set(k,v);
+  if(!params.lang && state.lang) p.set("lang",state.lang);
+  $("#out").innerHTML=`<p class="empty">查询中…</p>`;
+  try{
+    const r=await fetch("/api/lookup?"+p);
+    if(!r.ok) throw new Error((await r.json()).detail||"查询失败");
+    const d=await r.json();
+    state.last={...params,lang:p.get("lang")||d.source_lang};
+    render(d);
+  }catch(e){ $("#out").innerHTML=`<p class="empty">${esc(e.message)}</p>` }
+}
+
+function col(l,s,d){
+  if(!s) return `<div class="col"><div class="lang"><span>${LABEL[l]}</span></div><p class="empty">没有找到对应词。</p></div>`;
+  const chain=s.chain.map(n=>`<li class="f-${esc(n.fam)}"><div><span class="lg">${esc(n.lang)}${n.how?" · "+esc(n.how):""}</span><span class="fm">${esc(n.form)}</span>${n.mean?` <span class="mean">“${esc(n.mean)}”</span>`:""}</div></li>`).join("");
+  const alts=(s.alternatives||[]).length?`<div class="alts">其他译法：${s.alternatives.map(a=>`<button type="button" class="chip small" data-pick="${l}" data-w="${esc(a)}">${esc(a)}</button>`).join("")}</div>`:"";
+  return `<div class="col">
+    <div class="lang"><span>${LABEL[l]}</span><span>${esc(s.pos||"")}</span></div>
+    <p class="word">${esc(s.w)}</p>
+    ${s.glosses?.length?`<ol class="gloss">${s.glosses.map(g=>`<li>${esc(g)}</li>`).join("")}</ol>`:""}
+    <ol class="chain" aria-label="词源链，从近到远">${chain}</ol>
+    ${s.missing?`<p class="empty">词典里没有这个词的完整词条。</p>`:""}
+    ${s.etym_text?`<details><summary>维基词典词源原文</summary><p>${esc(s.etym_text)}</p></details>`:""}
+    ${alts}
+    <a href="${esc(s.url)}" target="_blank" rel="noopener">在维基词典查看 ↗</a>
+  </div>`;
+}
+
+function render(d){
+  if(!d.found){ $("#out").innerHTML=`<p class="headline">词典里没有「${esc(d.query)}」。</p><p class="empty">检查一下拼写，或者在上面选定语言再查。</p>`; return }
+  const pills=(d.tags||[]).map(t=>`<span class="pill p-${t}">${TAGS[t]}</span>`).join("")+`<span class="pill p-src">按${LNAME[d.source_lang]}查询</span>`;
+  const also=(d.also_in||[]).map(l=>`<button type="button" data-relang="${l}">按${LNAME[l]}查</button>`).join(" ");
+  const ai=state.status?.ai_enabled;
+  $("#out").innerHTML=`
+    <div class="summary"><div class="pills">${pills}${d.zh?.length?`<span class="zh">中文：${d.zh.map(esc).join("、")}</span>`:""}</div>
+      <p class="headline">${esc(d.headline)}</p></div>
+    ${also?`<p class="banner">「${esc(d.query)}」在其他语言里也是一个词：${also}</p>`:""}
+    <div class="cols">${col("en",d.en,d)}${col("fr",d.fr,d)}${col("nl",d.nl,d)}</div>
+    <div class="panel"><h2>它们之间的联系</h2><ul class="notes">${(d.notes||[]).map(x=>`<li>${esc(x)}</li>`).join("")||"<li>没有找到可以说明的联系。</li>"}</ul></div>
+    <div class="panel ai-box"><h2>AI 通俗讲解</h2>
+      ${ai?`<p class="small">AI 只根据上面的维基词典数据讲解，并给一个记忆小窍门。</p>
+      <div><button class="btn" id="explain" type="button">生成讲解</button></div>
+      <p class="ai-out" id="aiout"></p>`
+      :`<p class="small">AI 讲解没有开启。把 Anthropic API 密钥填进程序文件夹里的 config.json，再重新启动程序即可。</p>`}
+    </div>`;
+  document.querySelectorAll("[data-pick]").forEach(b=>b.onclick=()=>{
+    const pick={en:d.en?.w,fr:d.fr?.w,nl:d.nl?.w}; pick[b.dataset.pick]=b.dataset.w;
+    search({q:d.query,lang:d.source_lang,...pick});
+  });
+  document.querySelectorAll("[data-relang]").forEach(b=>b.onclick=()=>search({q:d.query,lang:b.dataset.relang}));
+  if(ai) $("#explain").onclick=()=>explain(d);
+}
+
+async function explain(d){
+  const btn=$("#explain"),out=$("#aiout");
+  btn.disabled=true; out.textContent="思考中…";
+  state.ctl=new AbortController();
+  try{
+    const r=await fetch("/api/explain",{method:"POST",headers:{"Content-Type":"application/json"},signal:state.ctl.signal,
+      body:JSON.stringify({q:d.query,lang:d.source_lang,en:d.en?.w,fr:d.fr?.w,nl:d.nl?.w})});
+    if(!r.ok){ out.textContent=(await r.json()).detail||"AI 讲解失败。"; return }
+    const reader=r.body.getReader(),dec=new TextDecoder(); let text="";
+    for(;;){const {done,value}=await reader.read(); if(done)break; text+=dec.decode(value,{stream:true}); out.textContent=text}
+  }catch(e){ if(e.name!=="AbortError") out.textContent="连接中断，请再试一次。" }
+  finally{ btn.disabled=false }
+}
+
+$("#f").addEventListener("submit",ev=>{ev.preventDefault();const q=$("#q").value.trim();if(q)search({q})});
+init();
+</script>
+</body>
+</html>
